@@ -1,0 +1,7 @@
+api.platonov.nomoredomains.work {
+  reverse_proxy mysrv:3000
+}
+
+platonov.nomoredomains.work {
+  reverse_proxy web:80
+}

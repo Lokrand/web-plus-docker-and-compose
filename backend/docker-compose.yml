@@ -1,0 +1,45 @@
+
+
+version: '3'
+services:
+  mysrv:
+    image: backend-docker
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8082:3000
+    restart: always
+  db:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    restart: always
+    env_file:
+      - .env
+  web:
+    image: nginx
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./templates:/etc/nginx/templates
+    ports:
+      - "8080:80"
+      - "8083:8083"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+  caddy:
+    image: caddy:2-alpine
+    build:
+      context: .
+      dockerfile: ./caddy/Dockerfile
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
