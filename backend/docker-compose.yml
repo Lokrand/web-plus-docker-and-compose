@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     volumes:
-      - postgres_data:/var/lib/postgresql/data:rw
+      - ./postgres_data:/var/lib/postgresql/data:rw
   web:
     image: nginx
     restart: always
