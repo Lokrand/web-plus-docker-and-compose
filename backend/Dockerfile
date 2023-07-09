@@ -9,7 +9,7 @@ FROM node:16-alpine as production
 WORKDIR /app
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/ecosystem.config.js ./
-RUN npm i --omit=dev && npm i pm2 -g
+RUN npm ci --omit=dev --audit=false && npm i pm2 -g
 COPY --from=builder /app/dist ./dist/
 EXPOSE 3000
 
