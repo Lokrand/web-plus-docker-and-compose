@@ -1,7 +1,15 @@
+{
+	auto_https disable_redirects
+}
+
 api.platonov.nomoredomains.work {
   reverse_proxy mysrv:3000
 }
 
 platonov.nomoredomains.work {
   reverse_proxy web:80
+}
+
+http://178.141.106.250 {
+ reverse_proxy web:80
 }
